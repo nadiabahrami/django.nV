@@ -25,8 +25,8 @@ SECRET_KEY = '0yxzudryd8)-%)(fz&7q-!v&cq1u6vbfoc4u7@u_&i)b@4eh^q'
 
 # A5: Security Misconfiguration
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-TEMPLATE_DEBUG = True
+DEBUG = False
+TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -98,7 +98,7 @@ TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 LOGIN_URL = '/taskManager/login/'
 
 # A6: Sensitive Data Exposure
-PASSWORD_HASHERS = ['django.contrib.auth.hashers.MD5PasswordHasher']
+PASSWORD_HASHERS = ['django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher']
 
 # A2: Broken Auth and Session Management
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"

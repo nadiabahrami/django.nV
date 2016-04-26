@@ -23,8 +23,6 @@ from django.utils import timezone
 from django.template import RequestContext
 from django.db import connection
 
-from django.views.decorators.csrf import csrf_exempt
-
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
@@ -113,7 +111,7 @@ def manage_groups(request):
 
     user = request.user
 
-    if user.is_authenticated():
+    if user.is_authenticated() and user.has_perm('can_change_group'):
 
         user_list = User.objects.order_by('date_joined')
 
@@ -772,7 +770,7 @@ def profile(request):
 # A8: Cross Site Request Forgery (CSRF)
 
 
-@csrf_exempt
+
 def profile_by_id(request, user_id):
     user = User.objects.get(pk=user_id)
     if user.is_authenticated():
@@ -806,7 +804,7 @@ def profile_by_id(request, user_id):
 
 # A8: Cross Site Request Forgery (CSRF)
 
-@csrf_exempt
+
 def reset_password(request):
 
     if request.method == 'POST':
@@ -846,7 +844,7 @@ def reset_password(request):
 
 # Vuln: Username Enumeration
 
-@csrf_exempt
+
 def forgot_password(request):
 
     if request.method == 'POST':
@@ -880,7 +878,7 @@ def forgot_password(request):
 
 # A8: Cross Site Request Forgery (CSRF)
 
-@csrf_exempt
+
 def change_password(request):
 
     if request.method == 'POST':
